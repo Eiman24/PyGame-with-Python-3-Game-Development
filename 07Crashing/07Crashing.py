@@ -20,6 +20,12 @@ clock = pygame.time.Clock()
 
 rocket_im = pygame.image.load('rocket.png')
 
+# Scores
+def things_dodged(count):
+	font = pygame.font.SysFont(None,25)
+	text = font.render("Dodged:" + str(count),True,black)
+	gameDisplay.blit(text,(0,0))
+
 def things(thingx,thingy,thingw,thingh,color):
 	pygame.draw.rect(gameDisplay,color,[thingx,thingy,thingw,thingh])
 
@@ -57,10 +63,12 @@ def game_loop():
 
 	thing_startx = random.randrange(0,display_width)
 	thing_starty = -600
-	thing_speed = 7
+	thing_speed = 5
 	# must longer than rocket_width
 	thing_width = 128
 	thing_height = 128
+
+	dodged = 0
 
 	while not gameExit:
 
@@ -98,12 +106,19 @@ def game_loop():
 
 		rocket_location(x,y)
 
+		things_dodged(dodged)
+
 		# function: things(thingx,thingy,thingw,thingh,color)
 		things(thing_startx,thing_starty,thing_width,thing_height,pink)
 		thing_starty += thing_speed
 		if thing_starty > display_height:
 			thing_starty = 0 - thing_height
 			thing_startx = random.randrange(0,display_width - thing_width)
+
+			# Score plus 1
+			dodged += 1
+			thing_speed += 1
+
 		# origin upper left
 		if y < thing_starty + thing_height:
 			print('y crossover')
