@@ -1,5 +1,6 @@
 import pygame
 import time
+import random
 
 pygame.init()
 # define something
@@ -18,6 +19,9 @@ pygame.display.set_caption('Rocket')
 clock = pygame.time.Clock()
 
 rocket_im = pygame.image.load('rocket.png')
+
+def things(thingx,thingy,thingw,thingh,color):
+	pygame.draw.rect(gameDisplay,color,[thingx,thingy,thingw,thingh])
 
 def rocket_location(x,y):
 	gameDisplay.blit(rocket_im,(x,y))
@@ -39,17 +43,24 @@ def message_display(text):
 
 	time.sleep(2)
 
-	#game_loop()
+	game_loop()
 
 def crash():
 	message_display('You Die')
 
 def game_loop():
 	x = (display_width * 0.42)
-	y = (display_height * 0.7) 
-	x_change = 0
+	y = (display_height * 0.7)
+	x_change = 0									
 
-	gameExit = False
+	gameExit = False														
+
+	thing_startx = random.randrange(0,display_width)
+	thing_starty = -600
+	thing_speed = 7
+	# must longer than rocket_width
+	thing_width = 128
+	thing_height = 128
 
 	while not gameExit:
 
@@ -84,8 +95,22 @@ def game_loop():
 		x += x_change
 		
 		gameDisplay.fill(sky_blue)
-		
+
 		rocket_location(x,y)
+
+		# function: things(thingx,thingy,thingw,thingh,color)
+		things(thing_startx,thing_starty,thing_width,thing_height,pink)
+		thing_starty += thing_speed
+		if thing_starty > display_height:
+			thing_starty = 0 - thing_height
+			thing_startx = random.randrange(0,display_width - thing_width)
+		# origin upper left
+		if y < thing_starty + thing_height:
+			print('y crossover')
+
+			if (x > thing_startx and x < thing_startx + thing_width) or (x + rocket_width > thing_startx and x + rocket_width < thing_startx + thing_width):
+				print('x crossover')
+				crash()
 
 		pygame.display.update()
 		clock.tick(60)

@@ -1,5 +1,6 @@
 import pygame
 import time
+import random
 
 pygame.init()
 # define something
@@ -18,6 +19,9 @@ pygame.display.set_caption('Rocket')
 clock = pygame.time.Clock()
 
 rocket_im = pygame.image.load('rocket.png')
+
+def things(thingx,thingy,thingw,thingh,color):
+	pygame.draw.rect(gameDisplay,color,[thingx,thingy,thingw,thingh])
 
 def rocket_location(x,y):
 	gameDisplay.blit(rocket_im,(x,y))
@@ -50,6 +54,12 @@ def game_loop():
 	x_change = 0
 
 	gameExit = False
+
+	thing_startx = random.randrange(0,display_width)
+	thing_starty = -600
+	thing_speed = 7
+	thing_width = 100
+	thing_height = 100
 
 	while not gameExit:
 
@@ -84,7 +94,14 @@ def game_loop():
 		x += x_change
 		
 		gameDisplay.fill(sky_blue)
-		
+
+		# function: things(thingx,thingy,thingw,thingh,color)
+		things(thing_startx,thing_starty,thing_width,thing_height,pink)
+		thing_starty += thing_speed
+		if thing_starty > display_height:
+			thing_starty = 0 - thing_height
+			thing_startx = random.randrange(0,display_width)
+
 		rocket_location(x,y)
 
 		pygame.display.update()
