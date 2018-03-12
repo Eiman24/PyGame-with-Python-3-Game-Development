@@ -76,10 +76,12 @@ def game_loop():
 				x_change = 5
 			if x_change == -10:
 				x_change = -5
-
-		x += x_change
+		# 这里有一个bug，只有当event.get()执行时才会从键盘缓存区调用key，
+		# 导致残留KEYUP，新游戏会自动运动（x_change != 0）
 		if x > display_width - rocket_width or x < 0:
 			crash()
+
+		x += x_change
 		
 		gameDisplay.fill(sky_blue)
 		
