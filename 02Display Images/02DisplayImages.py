@@ -36,7 +36,7 @@ while not End:
 			End = True
 		print(event)
 	
-	# set background
+	# set background(if this line after rocket_location,it'll cover rocket)
 	gameDisplay.fill(sky_blue)
 	
 	# move the rocket
