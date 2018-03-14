@@ -23,6 +23,9 @@ clock = pygame.time.Clock()
 
 rocket_im = pygame.image.load('rocket.png')
 
+rocket_icon = pygame.image.load('rocketicon.png')
+pygame.display.set_icon(rocket_icon)
+
 #pause = True
 # Scores
 def things_dodged(count):
