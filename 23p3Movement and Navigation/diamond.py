@@ -2,7 +2,7 @@ import pygame
 
 from pygame.locals import *
 #pip install PyOpenGL PyOpenGL_accelerate
-from OpenGL.GL import *
+from OpenGL.GL import * 
 from OpenGL.GLU import *
 
 vertices = (
