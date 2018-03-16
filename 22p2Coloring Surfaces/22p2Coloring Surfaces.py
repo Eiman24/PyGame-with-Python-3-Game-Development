@@ -41,12 +41,10 @@ surfaces = (
     )
 
 colors = (
-	(1,0.5,0.5),
-	(1,1,0.5),
-	(1,0.5,0.5),
-	(1,0.5,0.5),
-	(1,0,0.5)
-
+	(1,0.85,0.0),
+	(1,0.85,0.2),
+	(1,0.85,0.4),
+	(1,0.85,0.6)
 
 
 	)
@@ -57,8 +55,8 @@ def Cube():
 		x = 0
 		# all vertexes in this surface
 		for vertex in surface:
-			x += 1
 			glColor3fv(colors[x])
+			x += 1
 			glVertex3fv(vertices[vertex])
 
 
