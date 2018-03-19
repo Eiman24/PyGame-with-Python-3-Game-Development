@@ -69,9 +69,13 @@ colors = (
 
 
 
-def set_vertices(max_distance, min_distance = -20):
-    x_value_change = random.randrange(-10,10)
-    y_value_change = random.randrange(-10,10)
+def set_vertices(max_distance, min_distance = -20, camera_x = 0, camera_y = 0):
+
+    camera_x = -1*int(camera_x)
+    camera_y = -1*int(camera_y)
+
+    x_value_change = random.randrange(camera_x-75,camera_x+75)
+    y_value_change = random.randrange(camera_y-75,camera_y+75)
     z_value_change = random.randrange(-1*max_distance,min_distance)
 
     new_vertices = []
@@ -120,7 +124,7 @@ def Cube(vertices):
 
 def main():
     pygame.init()
-    display = (800,600)
+    display = (1600,1000)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
 
@@ -135,7 +139,11 @@ def main():
     x_move = 0
     y_move = 0
 
-    
+    cur_x = 0
+    cur_y = 0
+
+    game_speed = 2
+    direction_speed = 2
 
     cube_dict = {}
 
@@ -152,14 +160,14 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    x_move = 0.3
+                    x_move = direction_speed
                 if event.key == pygame.K_RIGHT:
-                    x_move = -0.3
+                    x_move = -1*direction_speed
 
                 if event.key == pygame.K_UP:
-                    y_move = -0.3
+                    y_move = -1*direction_speed
                 if event.key == pygame.K_DOWN:
-                    y_move = 0.3
+                    y_move = direction_speed
 
 
             if event.type == pygame.KEYUP:
@@ -196,9 +204,9 @@ def main():
             if camera_z <= cube_dict[each_cube][0][2]:
                 print("passed a cube")
                 #delete_list.append(each_cube)
-                new_max = int(-1*(camera_z-max_distance))
+                new_max = int(-1*(camera_z-max_distance*2))
 
-                cube_dict[each_cube] = set_vertices(new_max,int(camera_z))
+                cube_dict[each_cube] = set_vertices(new_max,int(camera_z-max_distance), cur_x, cur_y)
 
         pygame.display.flip()
         pygame.time.wait(10)
