@@ -162,8 +162,8 @@ def main():
 		pygame.time.wait(10)
 		
 
-		if camera_z <=0:
-			object_passed = True
+		#if camera_z <=0:
+			#object_passed = True
 
 for x in range(3):
 	main()
