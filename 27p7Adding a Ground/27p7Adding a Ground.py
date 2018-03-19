@@ -51,9 +51,26 @@ colors = (
 
 	)
 
+ground_vertices = (
+	(-10,-0.1,20),
+	(10,-0.1,20),
+	(-10,-0.1,-100),
+	(-10,-0.1,-100),
+
+	)
+
+def ground():
+	glBegin(GL_QUADS)
+	for vertex in ground_vertices:
+		glColor3fv((1,0.5,0.7))
+		glVertex3fv(vertex)
+
+	glEnd()
+
+
 def set_vertices(max_distance):
 	x_value_change = random.randrange(-10,10)
-	y_value_change = random.randrange(-10,10)
+	y_value_change = -1	#random.randrange(-10,10)
 	z_value_change = random.randrange(-1*max_distance,-2)
 
 	new_vertices = []
@@ -156,14 +173,16 @@ def main():
 
 		glTranslatef(x_move,y_move,0.2)
 
+		ground()
+
 		for each_cube in cube_dict:
 			Cube(cube_dict[each_cube])
 		pygame.display.flip()
 		pygame.time.wait(10)
 		
 
-		if camera_z <=0:
-			object_passed = True
+		#if camera_z <=0:
+			#object_passed = True
 
 for x in range(3):
 	main()
